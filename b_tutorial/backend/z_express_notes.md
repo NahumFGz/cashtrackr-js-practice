@@ -1,5 +1,5 @@
 npm install express colors morgan
-npm i -D @types/express nodemon ts-node typescript
+npm i -D @types/express @types/morgan nodemon ts-node typescript
 
 npm init
 npm install express
