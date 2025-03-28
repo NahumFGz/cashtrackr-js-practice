@@ -8,23 +8,13 @@ npx kill-port 4000
 
 # Para iniciar el servidor de desarrollo
 
-- Por comando
-  node --watch index.js
-  "dev": "node --watch index.js"
-  npm run dev
+- Instalaciones básicas
+  npm install express colors morgan
+  npm i -D @types/express @types/morgan nodemon ts-node typescript
 
-- Por libreria
-  npm install -D nodemon
-  npm install -save-dev nodemon
-  nodemon index.js
-  "dev": "nodemon index.js"
-  `npm run dev`
-
-- Instalación de typescript
-  npm install -D typescript ts-node
-  quitar de package.json "type": "module",
-  crear tsconfig.json
-  actualizar el comando de `npm run dev`
+- Instalar sequelize
+  npm i dotenv sequelize-typescript
+  npm i pg pg-hstore
 
 - Librerias de mongoose
   npm install mongoose
