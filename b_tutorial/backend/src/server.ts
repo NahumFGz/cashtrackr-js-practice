@@ -9,9 +9,11 @@ async function connectDB() {
         db.sync()
         console.log(colors.blue.bold('Conexión exitosa a la BD'))
     } catch (error) {
-        console.log(error)
+        // console.log(error)
+        console.log(colors.red.bold('Falló la conexión a la BD'))
     }
 }
+connectDB()
 
 
 const app = express()
