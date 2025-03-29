@@ -7,12 +7,12 @@ import {
   ForeignKey,
   Model,
 } from 'sequelize-typescript'
-import Expense from './Expense'
+import Budget from './Budget'
 
 @Table({
-  tableName: 'budgets',
+  tableName: 'expenses',
 })
-class Budget extends Model {
+class Expense extends Model {
   @Column({
     type: DataType.STRING(100),
   })
@@ -23,11 +23,11 @@ class Budget extends Model {
   })
   declare amount: number
 
-  @HasMany(() => Expense, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
-  declare expenses: Expense[]
+  @ForeignKey(() => Budget)
+  declare budgetId: number
+
+  @BelongsTo(() => Budget)
+  declare budget: Budget
 }
 
-export default Budget
+export default Expense
