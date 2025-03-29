@@ -10,11 +10,15 @@ npx kill-port 4000
 
 - Instalaciones básicas
   npm install express colors morgan
-  npm i -D @types/express @types/morgan nodemon ts-node typescript
+  npm i -D @types/morgan nodemon ts-node typescript
+  npm install --save-dev @types/express@4.17.20
 
 - Instalar sequelize
   npm i dotenv sequelize-typescript
   npm i pg pg-hstore
+
+- Instalar express-validator
+  npm i express-validator
 
 - Librerias de mongoose
   npm install mongoose
