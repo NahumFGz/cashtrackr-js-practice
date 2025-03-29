@@ -15,7 +15,7 @@ export const validateBudgetId = async (
   res: Response,
   next: NextFunction
 ) => {
-  await param('id')
+  await param('budgetId')
     .isInt()
     .withMessage('El ID no es válido')
     .custom((value) => value > 0)
@@ -36,8 +36,8 @@ export const validateBudgetExists = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params
-    const budget = await Budget.findByPk(id)
+    const { budgetId } = req.params
+    const budget = await Budget.findByPk(budgetId)
 
     if (!budget) {
       const error = new Error('Presupuesto no encontrado')
