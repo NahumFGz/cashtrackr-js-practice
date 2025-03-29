@@ -32,7 +32,6 @@ router.put(
 router.delete('/:budgetId', BudgetController.deleteById)
 
 //! Rutas de Expenses con patron ROA
-router.get('/:budgetId/expenses', ExpensesController.getAll)
 router.post(
   '/:budgetId/expenses',
   validateExpenseInput,
