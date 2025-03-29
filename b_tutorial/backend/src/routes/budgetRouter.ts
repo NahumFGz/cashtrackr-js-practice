@@ -6,9 +6,12 @@ import {
   validateBudgetInput,
 } from '../middleware/budget'
 import { handleInputErrors } from '../middleware/validation'
+import { ExpensesController } from '../controllers/ExpenseController'
+import { validateExpenseInput } from '../middleware/expense'
 
 const router = Router()
 
+//! Rutas de Budget
 router.param('budgetId', validateBudgetId)
 router.param('budgetId', validateBudgetExists)
 
@@ -27,5 +30,17 @@ router.put(
   BudgetController.updateById
 )
 router.delete('/:budgetId', BudgetController.deleteById)
+
+//! Rutas de Expenses con patron ROA
+router.get('/:budgetId/expenses', ExpensesController.getAll)
+router.post(
+  '/:budgetId/expenses',
+  validateExpenseInput,
+  handleInputErrors,
+  ExpensesController.create
+)
+router.get('/:budgetId/expenses/:expenseId', ExpensesController.getById)
+router.put('/:budgetId/expenses/:expenseId', ExpensesController.updateById)
+router.delete('/:budgetId/expenses/:expenseId', ExpensesController.deleteById)
 
 export default router
