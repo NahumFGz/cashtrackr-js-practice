@@ -29,6 +29,7 @@ router.get(
 router.put(
   '/:id',
   validateBudgetId,
+  validateBudgetExists,
   body('name')
     .notEmpty()
     .withMessage('El nombre del presupuesto es obligatorio'),
@@ -40,6 +41,11 @@ router.put(
   handleInputErrors,
   BudgetController.updateById
 )
-router.delete('/:id', validateBudgetId, BudgetController.deleteById)
+router.delete(
+  '/:id',
+  validateBudgetId,
+  validateBudgetExists,
+  BudgetController.deleteById
+)
 
 export default router
