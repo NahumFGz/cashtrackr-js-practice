@@ -3,6 +3,14 @@ import User from '../models/User'
 
 export class AuthController {
   static createAccount = async (req: Request, res: Response) => {
+    const { email } = req.body
+    // Prevenir duplicados
+    const userExists = await User.findOne({ where: { email: email } })
+    if (userExists) {
+      const error = new Error('El correo ya está registrado')
+      return res.status(409).json({ error: error.message })
+    }
+
     try {
       const user = new User(req.body)
       await user.save()
