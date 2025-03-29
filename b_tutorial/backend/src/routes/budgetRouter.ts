@@ -7,13 +7,20 @@ import {
 } from '../middleware/budget'
 import { handleInputErrors } from '../middleware/validation'
 import { ExpensesController } from '../controllers/ExpenseController'
-import { validateExpenseInput } from '../middleware/expense'
+import {
+  validateExpenseExists,
+  ValidateExpenseId,
+  validateExpenseInput,
+} from '../middleware/expense'
 
 const router = Router()
 
 //! Rutas de Budget
 router.param('budgetId', validateBudgetId)
 router.param('budgetId', validateBudgetExists)
+
+router.param('expenseId', ValidateExpenseId)
+router.param('expenseId', validateExpenseExists)
 
 router.get('/', BudgetController.getAll)
 router.post(
