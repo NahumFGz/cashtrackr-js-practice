@@ -20,6 +20,10 @@ npx kill-port 4000
 - Instalar express-validator
   npm i express-validator
 
+- Instalar hasheador
+  npm i bcrypt
+  npm i --save-dev @types/bcrypt
+
 - Librerias de mongoose
   npm install mongoose
   npm install dotenv
