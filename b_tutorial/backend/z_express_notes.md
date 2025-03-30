@@ -24,6 +24,10 @@ npx kill-port 4000
   npm i bcrypt
   npm i --save-dev @types/bcrypt
 
+- Instalar mail sender
+  npm i nodemailer
+  npm i -D @types/nodemailer
+
 - Librerias de mongoose
   npm install mongoose
   npm install dotenv
