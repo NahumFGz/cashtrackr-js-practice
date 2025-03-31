@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 import User from '../models/User'
-import { hashPassword } from '../utils/auth'
+import { checkPassword, hashPassword } from '../utils/auth'
 import { generateToken } from '../utils/token'
 import { AuthEmail } from '../emails/AuthEmail'
 
@@ -46,5 +46,34 @@ export class AuthController {
     await user.save()
 
     res.json('Cuenta confirmada correctamente')
+  }
+
+  static login = async (req: Request, res: Response) => {
+    const { email, password } = req.body
+
+    // Revisar que el usuario exista
+    const user = await User.findOne({ where: { email: email } })
+    if (!user) {
+      const error = new Error('Usuario no encontrado')
+      return res.status(404).json({ error: error.message })
+    }
+
+    if (!user.confirmed) {
+      const error = new Error('La cuenta no ha sido confirmada')
+      return res.status(403).json({ error: error.message })
+    }
+
+    const isPasswordCorrect = await checkPassword(password, user.password)
+    if (!isPasswordCorrect) {
+      const error = new Error('Password incorrecto')
+      return res.status(401).json({ error: error.message })
+    }
+
+    try {
+      res.json(user)
+    } catch (error) {
+      //console.log(error)}
+      res.status(500).json({ error: 'Hubo un error' })
+    }
   }
 }

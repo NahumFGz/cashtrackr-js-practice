@@ -32,4 +32,11 @@ router.post(
   AuthController.confirmAccount
 )
 
+router.post(
+  '/login',
+  body('password').isEmpty().withMessage('El password obligatorio'),
+  body('email').isEmail().withMessage('El correo proporcionado no es válido'),
+  AuthController.login
+)
+
 export default router
