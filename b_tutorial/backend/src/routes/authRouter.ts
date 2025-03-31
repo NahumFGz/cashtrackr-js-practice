@@ -2,8 +2,11 @@ import { Router } from 'express'
 import { body } from 'express-validator'
 import { AuthController } from '../controllers/AuthController'
 import { handleInputErrors } from '../middleware/validation'
+import { limiter } from '../config/limiter'
 
 const router = Router()
+//!Se puede aplicar a todas las URLs de un grupo
+//router.use(limiter)
 
 router.post(
   '/create-acount',
@@ -20,6 +23,7 @@ router.post(
 
 router.post(
   '/confirm-account',
+  limiter,
   body('token')
     .notEmpty()
     .isLength({ min: 6, max: 6 })

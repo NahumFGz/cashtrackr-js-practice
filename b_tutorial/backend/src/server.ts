@@ -22,6 +22,9 @@ app.use(morgan('dev'))
 
 app.use(express.json())
 
+//!Se puede aplicar a todas las URLs
+//router.use(limiter)
+
 app.use('/api/budgets', budgetRouter)
 app.use('/api/auth', authRouter)
 

@@ -28,6 +28,9 @@ npx kill-port 4000
   npm i nodemailer
   npm i -D @types/nodemailer
 
+- Instalar rate limiter
+  npm i express-rate-limit
+
 - Librerias de mongoose
   npm install mongoose
   npm install dotenv
