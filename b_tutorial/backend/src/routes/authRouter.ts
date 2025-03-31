@@ -6,7 +6,7 @@ import { limiter } from '../config/limiter'
 
 const router = Router()
 //!Se puede aplicar a todas las URLs de un grupo
-//router.use(limiter)
+router.use(limiter)
 
 router.post(
   '/create-acount',
@@ -23,7 +23,7 @@ router.post(
 
 router.post(
   '/confirm-account',
-  limiter,
+  //limiter, //! Para un solo endpoint
   body('token')
     .notEmpty()
     .isLength({ min: 6, max: 6 })
