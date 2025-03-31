@@ -36,7 +36,25 @@ router.post(
   '/login',
   body('password').isEmpty().withMessage('El password obligatorio'),
   body('email').isEmail().withMessage('El correo proporcionado no es válido'),
+  handleInputErrors,
   AuthController.login
+)
+
+router.post(
+  '/forgot-password',
+  body('email').isEmail().withMessage('El correo proporcionado no es válido'),
+  handleInputErrors,
+  AuthController.forgotPassword
+)
+
+router.post(
+  '/validate-token',
+  body('token')
+    .notEmpty()
+    .isLength({ min: 6, max: 6 })
+    .withMessage('Token no valido'),
+  handleInputErrors,
+  AuthController.validateToken
 )
 
 export default router

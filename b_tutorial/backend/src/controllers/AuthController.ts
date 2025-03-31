@@ -73,4 +73,37 @@ export class AuthController {
     const token = generateJWT(user.id)
     res.json(token)
   }
+
+  static forgotPassword = async (req: Request, res: Response) => {
+    const { email } = req.body
+
+    // Revisar que el usuario exista
+    const user = await User.findOne({ where: { email: email } })
+    if (!user) {
+      const error = new Error('Usuario no encontrado')
+      return res.status(404).json({ error: error.message })
+    }
+    user.token = generateToken()
+    await user.save()
+
+    await AuthEmail.sendPasswordResetToken({
+      name: user.name,
+      email: user.email,
+      token: user.token,
+    })
+
+    res.json('Revisa tu email para instrucciones')
+  }
+
+  static validateToken = async (req: Request, res: Response) => {
+    const { token } = req.body
+
+    const tokenExists = await User.findOne({ where: { token } })
+    if (!tokenExists) {
+      const error = new Error('Token no valido')
+      return res.status(404).json({ error: error.message })
+    }
+
+    res.json('Token válido...')
+  }
 }
