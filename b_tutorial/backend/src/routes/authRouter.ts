@@ -34,7 +34,7 @@ router.post(
 
 router.post(
   '/login',
-  body('password').isEmpty().withMessage('El password obligatorio'),
+  body('password').notEmpty().withMessage('El password obligatorio'),
   body('email').isEmail().withMessage('El correo proporcionado no es válido'),
   handleInputErrors,
   AuthController.login
@@ -69,5 +69,7 @@ router.post(
   handleInputErrors,
   AuthController.resetPasswordWithToken
 )
+
+router.get('/user', AuthController.user)
 
 export default router
