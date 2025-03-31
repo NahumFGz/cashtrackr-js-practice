@@ -31,6 +31,12 @@ npx kill-port 4000
 - Instalar rate limiter
   npm i express-rate-limit
 
+- Instalación de JWT
+  npm install jsonwebtoken
+  npm install -D @types/jsonwebtoken
+
+# Librerias anteriores
+
 - Librerias de mongoose
   npm install mongoose
   npm install dotenv
