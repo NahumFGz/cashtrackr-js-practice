@@ -3,6 +3,7 @@ import { body, param } from 'express-validator'
 import { AuthController } from '../controllers/AuthController'
 import { handleInputErrors } from '../middleware/validation'
 import { limiter } from '../config/limiter'
+import { authenticate } from '../middleware/auth'
 
 const router = Router()
 //!Se puede aplicar a todas las URLs de un grupo
@@ -70,6 +71,6 @@ router.post(
   AuthController.resetPasswordWithToken
 )
 
-router.get('/user', AuthController.user)
+router.get('/user', authenticate, AuthController.user)
 
 export default router
