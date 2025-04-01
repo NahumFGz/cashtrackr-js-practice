@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
+import { Outfit } from 'next/font/google'
 import './globals.css'
-import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const outfit = Outfit({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'CashTrackr',
@@ -16,10 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <h1>CashTrackr</h1>
-        {children}
-      </body>
+      <body className={outfit.className}>{children}</body>
     </html>
   )
 }
