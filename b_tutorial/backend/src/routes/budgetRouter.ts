@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { BudgetController } from '../controllers/BudgetController'
 import {
+  hasAccess,
   validateBudgetExists,
   validateBudgetId,
   validateBudgetInput,
@@ -15,11 +16,12 @@ import {
 import { authenticate } from '../middleware/auth'
 
 const router = Router()
-router.use(authenticate)
+router.use(authenticate) //Agrega o genera req.user
 
 //! Rutas de Budget
 router.param('budgetId', validateBudgetId)
-router.param('budgetId', validateBudgetExists)
+router.param('budgetId', validateBudgetExists) //Agrega o genera req.budget
+router.param('budgetId', hasAccess)
 
 router.param('expenseId', ValidateExpenseId)
 router.param('expenseId', validateExpenseExists)
