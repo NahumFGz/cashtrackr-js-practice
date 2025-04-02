@@ -9,3 +9,6 @@
 
 - Input de chakra
   npm i @chakra-ui/pin-input
+
+- Toastify
+  npm i react-toastify

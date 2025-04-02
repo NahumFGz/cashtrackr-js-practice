@@ -1,4 +1,5 @@
 import Logo from '@/components/ui/Logo'
+import ToastNotification from '@/components/ui/ToastNotification'
 
 export default function AuthLayout({
   children,
@@ -17,6 +18,8 @@ export default function AuthLayout({
           <div className='max-w-3xl mx-auto'>{children}</div>
         </div>
       </div>
+
+      <ToastNotification />
     </>
   )
 }
