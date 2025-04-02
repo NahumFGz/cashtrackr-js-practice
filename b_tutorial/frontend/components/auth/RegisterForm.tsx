@@ -2,17 +2,18 @@
 
 import { register } from '@/actions/create-account-action'
 import { useFormState } from 'react-dom'
+import ErrorMessage from '../ui/ErrorMessage'
 
 export default function RegisterForm() {
   const [state, dispatch] = useFormState(register, {
     errors: [],
   })
-
-  console.log('state', state)
-
   return (
     <>
       <form className='mt-14 space-y-5' noValidate action={dispatch}>
+        {state.errors.map((error, index) => (
+          <ErrorMessage key={index}>{error}</ErrorMessage>
+        ))}
         <div className='flex flex-col gap-2'>
           <label className='font-bold text-2xl' htmlFor='email'>
             Email
