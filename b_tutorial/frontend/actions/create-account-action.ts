@@ -49,7 +49,7 @@ export async function register(prevState: ActionStateType, formData: FormData) {
 
     return {
       errors: [error],
-      success: prevState.success,
+      success: '',
     }
   }
 
