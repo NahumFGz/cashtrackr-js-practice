@@ -1,9 +1,10 @@
 'use server'
 
-import { RegisterSchema } from '@/src/schemas'
+import { RegisterSchema, SuccessSchema } from '@/src/schemas'
 
 type ActionStateType = {
   errors: string[]
+  success: string
 }
 
 export async function register(prevState: ActionStateType, formData: FormData) {
@@ -22,6 +23,7 @@ export async function register(prevState: ActionStateType, formData: FormData) {
     const errors = register.error.errors.map((error) => error.message)
     return {
       errors,
+      success: prevState.success,
     }
   }
   console.log('register', register)
@@ -41,9 +43,12 @@ export async function register(prevState: ActionStateType, formData: FormData) {
   })
 
   const json = await req.json()
-  console.log('json', json)
+  const success = SuccessSchema.parse(json)
+  console.log('sucess-> ', SuccessSchema.safeParse(json))
+  console.log('sucess2-> ', SuccessSchema.parse(json))
 
   return {
-    errors: [],
+    errors: prevState.errors,
+    success: success,
   }
 }
