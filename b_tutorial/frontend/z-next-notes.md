@@ -6,3 +6,6 @@
 
 - Validador y completado
   npm i zod
+
+- Input de chakra
+  npm i @chakra-ui/pin-input
