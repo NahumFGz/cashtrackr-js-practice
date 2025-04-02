@@ -19,4 +19,7 @@ export const RegisterSchema = z
     path: ['password_confirmation'],
   })
 
-export const SuccessSchema = z.string().min(1, { message: 'Valor no válido' })
+export const SuccessSchema = z.string()
+export const ErrorResposeSchema = z.object({
+  error: z.string(),
+})

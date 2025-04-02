@@ -1,6 +1,10 @@
 'use server'
 
-import { RegisterSchema, SuccessSchema } from '@/src/schemas'
+import {
+  ErrorResposeSchema,
+  RegisterSchema,
+  SuccessSchema,
+} from '@/src/schemas'
 
 type ActionStateType = {
   errors: string[]
@@ -8,8 +12,6 @@ type ActionStateType = {
 }
 
 export async function register(prevState: ActionStateType, formData: FormData) {
-  console.log(formData)
-
   const registerData = {
     email: formData.get('email'),
     name: formData.get('name'),
@@ -26,7 +28,6 @@ export async function register(prevState: ActionStateType, formData: FormData) {
       success: prevState.success,
     }
   }
-  console.log('register', register)
 
   // Registrar el usuario
   const url = `${process.env.API_URL}/auth/create-acount`
@@ -43,9 +44,16 @@ export async function register(prevState: ActionStateType, formData: FormData) {
   })
 
   const json = await req.json()
+  if (req.status === 409) {
+    const { error } = ErrorResposeSchema.parse(json)
+
+    return {
+      errors: [error],
+      success: prevState.success,
+    }
+  }
+
   const success = SuccessSchema.parse(json)
-  console.log('sucess-> ', SuccessSchema.safeParse(json))
-  console.log('sucess2-> ', SuccessSchema.parse(json))
 
   return {
     errors: prevState.errors,
