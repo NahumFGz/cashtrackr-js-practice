@@ -10,7 +10,7 @@ const router = Router()
 router.use(limiter)
 
 router.post(
-  '/create-acount',
+  '/create-account',
   body('name')
     .notEmpty()
     .withMessage('El nombre de la cuenta no puede ir vacío'),
