@@ -32,8 +32,8 @@ export default function ConfirmAccountForm() {
   }, [state])
 
   const handleChange = (token: string) => {
+    setIsComplete(false)
     setToken(token)
-    console.log(token)
   }
 
   const handleComplete = () => {
