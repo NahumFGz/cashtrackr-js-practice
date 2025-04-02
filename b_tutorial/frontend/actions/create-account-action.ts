@@ -30,7 +30,7 @@ export async function register(prevState: ActionStateType, formData: FormData) {
   }
 
   // Registrar el usuario
-  const url = `${process.env.API_URL}/auth/create-acount`
+  const url = `${process.env.API_URL}/auth/create-account`
   const req = await fetch(url, {
     method: 'POST',
     headers: {
