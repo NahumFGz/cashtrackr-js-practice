@@ -1,13 +1,14 @@
 'use client'
 
-import { confirmAccount } from '@/actions/confirm-account-action'
-import { PinInput, PinInputField } from '@chakra-ui/pin-input'
 import { useEffect, useState } from 'react'
 import { useFormState } from 'react-dom'
-import SuccessMessage from '../ui/SuccessMessage'
+import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
+import { PinInput, PinInputField } from '@chakra-ui/pin-input'
+import { confirmAccount } from '@/actions/confirm-account-action'
 
 export default function ConfirmAccountForm() {
+  const router = useRouter()
   const [isComplete, setIsComplete] = useState(false)
   const [token, setToken] = useState('')
 
@@ -29,7 +30,15 @@ export default function ConfirmAccountForm() {
         toast.error(error)
       })
     }
-  }, [state])
+
+    if (state.success) {
+      toast.success(state.success, {
+        onClose: () => {
+          router.push('/auth/login')
+        },
+      })
+    }
+  }, [router, state])
 
   const handleChange = (token: string) => {
     setIsComplete(false)
@@ -42,8 +51,6 @@ export default function ConfirmAccountForm() {
 
   return (
     <>
-      {state.success && <SuccessMessage>{state.success}</SuccessMessage>}
-
       <div className='flex justify-center gap-5 my-10'>
         <PinInput
           value={token}
