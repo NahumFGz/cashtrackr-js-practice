@@ -23,6 +23,6 @@ export async function authenticate(
   }
 
   return {
-    errors: prevState.errors,
+    errors: [],
   }
 }
