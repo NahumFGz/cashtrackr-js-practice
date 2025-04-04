@@ -1,5 +1,6 @@
 'use server'
 
+import { cookies } from 'next/headers'
 import { ErrorResposeSchema, LoginSchema } from '@/src/schemas'
 
 type ActionStateType = {
@@ -43,7 +44,13 @@ export async function authenticate(
     }
   }
 
-  console.log(json)
+  //! Setear Cookies
+  cookies().set({
+    name: 'CASHTRACKR_TOKEN',
+    value: json,
+    httpOnly: true, //Solo el servidor puede acceder a la cookie
+    path: '/', //Indica en que rutas del proyecto es valida
+  })
 
   return {
     errors: [],
