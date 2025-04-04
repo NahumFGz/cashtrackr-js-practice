@@ -1,6 +1,7 @@
 'use server'
 
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { ErrorResposeSchema, LoginSchema } from '@/src/schemas'
 
 type ActionStateType = {
@@ -52,7 +53,10 @@ export async function authenticate(
     path: '/', //Indica en que rutas del proyecto es valida
   })
 
-  return {
-    errors: [],
-  }
+  redirect('/admin')
+
+  //! Si la autentificación es correcta ya no es necesario porque el redirect me lleva a otro lado y corta el flujo
+  //   return {
+  //     errors: [],
+  //   }
 }
