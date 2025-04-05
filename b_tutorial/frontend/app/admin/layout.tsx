@@ -1,5 +1,6 @@
 import Logo from '@/components/ui/Logo'
 import ToastNotification from '@/components/ui/ToastNotification'
+import { verifySession } from '@/src/auth/dal'
 import Link from 'next/link'
 
 export default async function AdminLayout({
@@ -7,6 +8,9 @@ export default async function AdminLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  //!CUIDADO: Esto solo verificará la primera vez que carga el layout
+  await verifySession()
+
   return (
     <>
       <header className='bg-purple-950 py-5'>
