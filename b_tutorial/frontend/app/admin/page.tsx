@@ -1,6 +1,9 @@
+import { verifySession } from '@/src/auth/dal'
 import Link from 'next/link'
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  await verifySession()
+
   return (
     <>
       <div className='flex flex-col-reverse md:flex-row md:justify-between items-center'>
