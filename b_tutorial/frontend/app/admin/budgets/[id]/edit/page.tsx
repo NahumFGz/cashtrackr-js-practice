@@ -2,6 +2,7 @@ import Link from 'next/link'
 import getToken from '@/src/auth/token'
 import { BudgetAPIResponseSchema } from '@/src/schemas'
 import { notFound } from 'next/navigation'
+import EditBudgetForm from '@/components/budgets/EditBudgetForm'
 
 const getBudget = async (budgetId: string) => {
   const token = getToken()
@@ -49,7 +50,9 @@ export default async function EditBudgetPage({
           Volver
         </Link>
       </div>
-      <div className='p-10 mt-10  shadow-lg border '></div>
+      <div className='p-10 mt-10  shadow-lg border '>
+        <EditBudgetForm />
+      </div>
     </>
   )
 }
