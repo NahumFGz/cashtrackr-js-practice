@@ -1,6 +1,7 @@
 'use server'
 
-import { DraftBudgetSchema } from '@/src/schemas'
+import { DraftBudgetSchema, SuccessSchema } from '@/src/schemas'
+import { cookies } from 'next/headers'
 
 type ActionStateType = {
   errors: string[]
@@ -22,8 +23,26 @@ export async function createBudget(
     }
   }
 
+  const token = cookies().get('CASHTRACKR_TOKEN')?.value
+  const url = `${process.env.API_URL}/budgets`
+
+  const req = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name: budget.data.name,
+      amount: budget.data.amount,
+    }),
+  })
+
+  const json = await req.json()
+  const success = SuccessSchema.parse(json)
+
   return {
     errors: [],
-    success: '',
+    success: success,
   }
 }
