@@ -1,6 +1,7 @@
+import BudgetMenu from '@/components/budgets/BudgetMenu'
 import getToken from '@/src/auth/token'
 import { BudgetsAPIResponseSchema } from '@/src/schemas'
-import { formatCurrency } from '@/src/utils'
+import { formatCurrency, formatDate } from '@/src/utils'
 import { Metadata } from 'next'
 import Link from 'next/link'
 
@@ -71,10 +72,18 @@ export default async function AdminPage() {
                   <p className='text-xl font-bold text-amber-500'>
                     {formatCurrency(+budget.amount)}
                   </p>
-                  <p className='text-gray-500  text-sm'></p>
+                  <p className='text-gray-500  text-sm'>
+                    Última Actualización:{' '}
+                    <span className='font-bold'>
+                      {' '}
+                      {formatDate(budget.createdAt)}
+                    </span>
+                  </p>
                 </div>
               </div>
-              <div className='flex shrink-0 items-center gap-x-6'></div>
+              <div className='flex shrink-0 items-center gap-x-6'>
+                <BudgetMenu budgetId={budget.id} />
+              </div>
             </li>
           ))}
         </ul>
