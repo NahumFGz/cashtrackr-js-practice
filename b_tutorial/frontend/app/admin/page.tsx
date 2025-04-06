@@ -31,7 +31,6 @@ async function getUserBudgets() {
 
 export default async function AdminPage() {
   const budgets = await getUserBudgets()
-  console.log(budgets)
 
   return (
     <>
