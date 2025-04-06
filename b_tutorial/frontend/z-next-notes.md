@@ -12,3 +12,6 @@
 
 - Toastify
   npm i react-toastify
+
+- HeadlessUI & Icons
+  npm install @headlessui/react @heroicons/react
