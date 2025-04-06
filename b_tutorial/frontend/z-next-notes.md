@@ -15,3 +15,6 @@
 
 - HeadlessUI & Icons
   npm install @headlessui/react @heroicons/react
+
+- Para ejecutar solo en el servidor
+  npm i server-only
