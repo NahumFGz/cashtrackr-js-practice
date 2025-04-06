@@ -1,4 +1,6 @@
-export default function BudgetForm() {
+import { Budget } from '@/src/schemas'
+
+export default function BudgetForm({ budget }: { budget?: Budget }) {
   return (
     <>
       <div className='space-y-3'>
@@ -11,6 +13,7 @@ export default function BudgetForm() {
           type='text'
           placeholder='Nombre del Presupuesto'
           name='name'
+          defaultValue={budget?.name} //! defaultValue es una propiedad de nextJS
         />
       </div>
       <div className='space-y-3'>
@@ -23,6 +26,7 @@ export default function BudgetForm() {
           className='w-full p-3  border border-gray-100 bg-slate-100'
           placeholder='Cantidad Presupuesto'
           name='amount'
+          defaultValue={budget?.amount}
         />
       </div>
     </>
