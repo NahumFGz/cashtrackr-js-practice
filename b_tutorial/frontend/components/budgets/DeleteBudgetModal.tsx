@@ -9,6 +9,7 @@ import {
 } from '@headlessui/react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
+import ConfirmPasswordForm from './ConfirmPasswordForm'
 
 export default function DeleteBudgetModal() {
   const router = useRouter()
@@ -54,7 +55,7 @@ export default function DeleteBudgetModal() {
                   leaveTo='opacity-0 scale-95'
                 >
                   <DialogPanel className='w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16'>
-                    <p>desde Modal</p>
+                    <ConfirmPasswordForm />
                   </DialogPanel>
                 </TransitionChild>
               </div>
