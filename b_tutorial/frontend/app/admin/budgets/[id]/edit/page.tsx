@@ -3,6 +3,7 @@ import getToken from '@/src/auth/token'
 import { BudgetAPIResponseSchema } from '@/src/schemas'
 import { notFound } from 'next/navigation'
 import EditBudgetForm from '@/components/budgets/EditBudgetForm'
+import { Metadata } from 'next'
 
 const getBudget = async (budgetId: string) => {
   const token = getToken()
@@ -21,6 +22,20 @@ const getBudget = async (budgetId: string) => {
   const budget = BudgetAPIResponseSchema.parse(json)
 
   return budget
+}
+
+//! función de next que se ejecuta solo definiendola y tiene acceso a los params del componente
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string }
+}): Promise<Metadata> {
+  const budget = await getBudget(params.id)
+
+  return {
+    title: `CashTrackr - ${budget.name}`,
+    description: `CashTrackr - ${budget.name}`,
+  }
 }
 
 export default async function EditBudgetPage({
