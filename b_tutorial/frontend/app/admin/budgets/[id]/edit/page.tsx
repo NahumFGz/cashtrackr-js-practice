@@ -1,29 +1,7 @@
 import { Metadata } from 'next'
-import { cache } from 'react'
 import Link from 'next/link'
-import getToken from '@/src/auth/token'
-import { BudgetAPIResponseSchema } from '@/src/schemas'
-import { notFound } from 'next/navigation'
 import EditBudgetForm from '@/components/budgets/EditBudgetForm'
-
-const getBudget = cache(async (budgetId: string) => {
-  const token = getToken()
-  const url = `${process.env.API_URL}/budgets/${budgetId}`
-  const req = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const json = await req.json()
-  if (!req.ok) {
-    notFound()
-  }
-
-  const budget = BudgetAPIResponseSchema.parse(json)
-
-  return budget
-})
+import { getBudget } from '@/src/services/budget'
 
 //! función de next que se ejecuta solo definiendola y tiene acceso a los params del componente
 export async function generateMetadata({
