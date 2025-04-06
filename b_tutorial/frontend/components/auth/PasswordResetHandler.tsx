@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from 'react'
 import ValidateTokenForm from './ValidateTokenForm'
 import ResetPasswordForm from './ResetPasswordForm'
