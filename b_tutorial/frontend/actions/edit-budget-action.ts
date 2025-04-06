@@ -7,6 +7,7 @@ import {
   ErrorResposeSchema,
   SuccessSchema,
 } from '@/src/schemas'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 type ActionStateType = {
   errors: string[]
@@ -53,6 +54,14 @@ export async function editBudget(
       success: '',
     }
   }
+
+  //! revalidate permite volver a cachear para actualizar los cambios en admin
+  //! Se revalida siempre despues de la mutación
+  //! Esto revalida todo el path q se indica
+  //revalidatePath('/admin')
+
+  //* Otra alternativa para no cargar todas las consultas es usar revalidateTag
+  revalidateTag('/all-budgets')
 
   const success = SuccessSchema.parse(json)
 

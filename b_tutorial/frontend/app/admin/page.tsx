@@ -22,6 +22,9 @@ async function getUserBudgets() {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    next: {
+      tags: ['all-budgets'],
+    },
   })
   const json = await req.json()
   const budgets = BudgetsAPIResponseSchema.parse(json)
