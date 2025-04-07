@@ -24,7 +24,6 @@ export async function generateMetadata({
 
 export default async function BugetDetailsPage({ params }: budgetParamsType) {
   const budget = await getBudget(params.id)
-  console.log(budget)
 
   return (
     <>

@@ -64,6 +64,12 @@ export const PasswordValidationSchema = z
   .string()
   .min(1, { message: 'Password no válido' })
 
+export const DrafExpenseSchema = z.object({
+  name: z.string().min(1, { message: 'El nombre del gasto es obligatorio' }),
+  amount: z.coerce.number().min(1, { message: 'Cantidad no válida' }),
+  // coerce combierte el string q viene del formulario a number u otro valor
+})
+
 //! Esquemas para revisar la forma de la respuesta
 export const SuccessSchema = z.string()
 

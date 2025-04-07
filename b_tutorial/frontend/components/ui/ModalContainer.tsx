@@ -68,7 +68,9 @@ export default function ModalContainer() {
                 leaveTo='opacity-0 scale-95'
               >
                 <DialogPanel className='w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16'>
-                  {ComponentToRender ? ComponentToRender : null}
+                  {ComponentToRender ? (
+                    <ComponentToRender closeModal={closeModal} />
+                  ) : null}
                 </DialogPanel>
               </TransitionChild>
             </div>
