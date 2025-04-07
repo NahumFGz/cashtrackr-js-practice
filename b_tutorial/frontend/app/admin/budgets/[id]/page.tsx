@@ -1,3 +1,5 @@
+import AddExpenseButton from '@/components/expenses/AddExpenseButton'
+import ModalContainer from '@/components/ui/ModalContainer'
 import { getBudget } from '@/src/services/budget'
 import { Metadata } from 'next'
 
@@ -33,7 +35,10 @@ export default async function BugetDetailsPage({ params }: budgetParamsType) {
             Administra tus {''} <span className='text-amber-500'>gastos</span>
           </p>
         </div>
+        <AddExpenseButton />
       </div>
+
+      <ModalContainer />
     </>
   )
 }
