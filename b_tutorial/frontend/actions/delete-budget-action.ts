@@ -5,10 +5,13 @@ import {
   Budget,
   ErrorResposeSchema,
   PasswordValidationSchema,
+  SuccessSchema,
 } from '@/src/schemas'
+import { revalidatePath } from 'next/cache'
 
 type ActionStateType = {
   errors: string[]
+  success: string
 }
 
 export async function deleteBudget(
@@ -23,6 +26,7 @@ export async function deleteBudget(
   if (!currentPassword.success) {
     return {
       errors: currentPassword.error.issues.map((issue) => issue.message),
+      success: '',
     }
   }
 
@@ -45,6 +49,7 @@ export async function deleteBudget(
     const { error } = ErrorResposeSchema.parse(checkPasswordReqJson)
     return {
       errors: [error],
+      success: '',
     }
   }
 
@@ -62,10 +67,14 @@ export async function deleteBudget(
     const { error } = ErrorResposeSchema.parse(deleteBudgetJson)
     return {
       errors: [error],
+      success: '',
     }
   }
 
+  revalidatePath('/admin')
+  const success = SuccessSchema.parse(deleteBudgetJson)
   return {
     errors: [],
+    success: success,
   }
 }

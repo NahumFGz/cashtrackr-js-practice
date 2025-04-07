@@ -3,6 +3,8 @@ import { DialogTitle } from '@headlessui/react'
 import { useFormState } from 'react-dom'
 import { deleteBudget } from '@/actions/delete-budget-action'
 import ErrorMessage from '../ui/ErrorMessage'
+import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 export default function ConfirmPasswordForm() {
   const pathname = usePathname()
@@ -13,7 +15,17 @@ export default function ConfirmPasswordForm() {
   const deleteBudgetIdWithPassword = deleteBudget.bind(null, budgetId)
   const [state, dispatch] = useFormState(deleteBudgetIdWithPassword, {
     errors: [],
+    success: '',
   })
+
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.success)
+      closeModal()
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state])
 
   const closeModal = () => {
     const hideModal = new URLSearchParams(searchParams.toString())
