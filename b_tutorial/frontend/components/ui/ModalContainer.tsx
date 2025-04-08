@@ -26,8 +26,11 @@ export default function ModalContainer() {
   const show = showModal ? true : false
 
   const addExpense = searchParams.get('addExpense')
+  const editExpense = searchParams.get('editExpenseId')
+
   const getComponentName = () => {
     if (addExpense) return 'AddExpense'
+    if (editExpense) return 'EditExpense'
   }
   const componentName = getComponentName()
   const ComponentToRender = componentName ? componentsMap[componentName] : null
