@@ -7,6 +7,7 @@ import {
   ErrorResposeSchema,
   SuccessSchema,
 } from '@/src/schemas'
+import { revalidatePath } from 'next/cache'
 
 type ActionStateType = {
   errors: string[]
@@ -57,6 +58,7 @@ export default async function createExpense(
   }
 
   const success = SuccessSchema.parse(json)
+  revalidatePath(`/admin/budgets/${budgetId}`)
 
   return {
     errors: [],
