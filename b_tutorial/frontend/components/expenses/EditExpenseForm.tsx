@@ -3,6 +3,10 @@ import ExpenseForm from './ExpenseForm'
 import { useEffect, useState } from 'react'
 import { useParams, useSearchParams } from 'next/navigation'
 import { DrafExpense } from '@/src/schemas'
+import { useFormState } from 'react-dom'
+import editExpense from '@/actions/edit-expense-action'
+import ErrorMessage from '../ui/ErrorMessage'
+import { toast } from 'react-toastify'
 
 export default function EditExpenseForm({
   closeModal,
@@ -13,16 +17,31 @@ export default function EditExpenseForm({
 
   const { id: budgetId } = useParams()
   const searchParams = useSearchParams()
-  const expenseId = searchParams.get('editExpenseId')
+  const expenseId = searchParams.get('editExpenseId')!
+
+  const editExpenseWithBudgetId = editExpense.bind(null, {
+    budgetId: +budgetId,
+    expenseId: +expenseId,
+  })
+  const [state, dispatch] = useFormState(editExpenseWithBudgetId, {
+    errors: [],
+    success: '',
+  })
 
   useEffect(() => {
     const url = `${process.env.NEXT_PUBLIC_URL}/admin/api/budgets/${budgetId}/expenses/${expenseId}`
     fetch(url)
       .then((res) => res.json())
       .then((data) => setExpense(data))
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.success)
+      closeModal()
+    }
+  }, [state, closeModal])
 
   return (
     <>
@@ -33,9 +52,13 @@ export default function EditExpenseForm({
         Edita los detalles de un {''}
         <span className='text-amber-500'>gasto</span>
       </p>
+      {state.errors.map((error) => (
+        <ErrorMessage key={error}>{error}</ErrorMessage>
+      ))}
       <form
         className='bg-gray-100 shadow-lg rounded-lg p-10 mt-10 border'
         noValidate
+        action={dispatch}
       >
         <ExpenseForm expense={expense} />
         <input
