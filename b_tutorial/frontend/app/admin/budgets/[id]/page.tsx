@@ -1,5 +1,6 @@
 import AddExpenseButton from '@/components/expenses/AddExpenseButton'
 import ExpenseMenu from '@/components/expenses/ExpenseMenu'
+import Amount from '@/components/ui/Amount'
 import ModalContainer from '@/components/ui/ModalContainer'
 import { getBudget } from '@/src/services/budget'
 import { formatCurrency, formatDate } from '@/src/utils'
@@ -26,6 +27,11 @@ export async function generateMetadata({
 
 export default async function BugetDetailsPage({ params }: budgetParamsType) {
   const budget = await getBudget(params.id)
+  const totalSpent = budget.expenses.reduce(
+    (total, expense) => +expense.amount + total,
+    0
+  )
+  const totalAvailable = +budget.amount - totalSpent
 
   return (
     <>
@@ -41,6 +47,14 @@ export default async function BugetDetailsPage({ params }: budgetParamsType) {
 
       {budget.expenses.length ? (
         <>
+          <div className='grid grid-cols-1 md:grid-cols-2 mt-10'>
+            <div>Gráfica aqui</div>
+            <div className='flex flex-col justify-center items-center md:items-start gap-5'>
+              <Amount label='Presupuesto' amount={+budget.amount} />
+              <Amount label='Disponible' amount={totalAvailable} />
+              <Amount label='Gastado' amount={totalSpent} />
+            </div>
+          </div>
           <h1 className='font-black text-4xl text-purple-950 mt-10'>
             Gastos en este presupuesto
           </h1>
