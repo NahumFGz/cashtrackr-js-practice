@@ -1,3 +1,4 @@
+import ProgressBar from '@/components/budgets/ProgressBar'
 import AddExpenseButton from '@/components/expenses/AddExpenseButton'
 import ExpenseMenu from '@/components/expenses/ExpenseMenu'
 import Amount from '@/components/ui/Amount'
@@ -48,7 +49,9 @@ export default async function BugetDetailsPage({ params }: budgetParamsType) {
       {budget.expenses.length ? (
         <>
           <div className='grid grid-cols-1 md:grid-cols-2 mt-10'>
-            <div>Gráfica aqui</div>
+            <div>
+              <ProgressBar />
+            </div>
             <div className='flex flex-col justify-center items-center md:items-start gap-5'>
               <Amount label='Presupuesto' amount={+budget.amount} />
               <Amount label='Disponible' amount={totalAvailable} />

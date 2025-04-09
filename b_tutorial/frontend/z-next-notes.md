@@ -18,3 +18,6 @@
 
 - Para ejecutar solo en el servidor
   npm i server-only
+
+- Instalar gráficas circulares
+  npm i react-circular-progressbar
