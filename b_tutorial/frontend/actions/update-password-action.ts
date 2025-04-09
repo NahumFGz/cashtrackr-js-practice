@@ -1,6 +1,11 @@
 'use server'
 
-import { UpdatePasswordSchema } from '@/src/schemas'
+import getToken from '@/src/auth/token'
+import {
+  ErrorResposeSchema,
+  SuccessSchema,
+  UpdatePasswordSchema,
+} from '@/src/schemas'
 
 type ActionStateType = {
   errors: string[]
@@ -24,8 +29,34 @@ export async function updatePassword(
     }
   }
 
+  const token = getToken()
+  const url = `${process.env.API_URL}/auth/update-password`
+  const req = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      current_password: userPassword.data.current_password,
+      password: userPassword.data.password,
+    }),
+  })
+
+  const json = await req.json()
+
+  if (!req.ok) {
+    const { error } = ErrorResposeSchema.parse(json)
+    return {
+      errors: [error],
+      success: '',
+    }
+  }
+
+  const success = SuccessSchema.parse(json)
+
   return {
     errors: [],
-    success: '',
+    success: success,
   }
 }

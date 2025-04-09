@@ -3,16 +3,26 @@
 import { updatePassword } from '@/actions/update-password-action'
 import { useFormState } from 'react-dom'
 import ErrorMessage from '../ui/ErrorMessage'
+import { useEffect, useRef } from 'react'
+import { toast } from 'react-toastify'
 
 export default function ChangePasswordForm() {
+  const ref = useRef<HTMLFormElement>(null)
   const [state, dispatch] = useFormState(updatePassword, {
     errors: [],
     success: '',
   })
 
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.success)
+      ref.current?.reset()
+    }
+  }, [state])
+
   return (
     <>
-      <form className=' mt-14 space-y-5' noValidate action={dispatch}>
+      <form className=' mt-14 space-y-5' noValidate action={dispatch} ref={ref}>
         {state.errors.map((error) => (
           <ErrorMessage key={error}>{error}</ErrorMessage>
         ))}
