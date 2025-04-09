@@ -9,6 +9,7 @@ import {
 import { handleInputErrors } from '../middleware/validation'
 import { ExpensesController } from '../controllers/ExpenseController'
 import {
+  belongsToBudget,
   validateExpenseExists,
   ValidateExpenseId,
   validateExpenseInput,
@@ -25,6 +26,7 @@ router.param('budgetId', hasAccess)
 
 router.param('expenseId', ValidateExpenseId)
 router.param('expenseId', validateExpenseExists)
+router.param('expenseId', belongsToBudget)
 
 router.get('/', BudgetController.getAll)
 router.post(
