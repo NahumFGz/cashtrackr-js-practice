@@ -168,11 +168,10 @@ export class AuthController {
 
   static updateUser = async (req: Request, res: Response) => {
     const { name, email } = req.body
-    const { id } = req.user
 
     try {
       const existingUser = await User.findOne({ where: { email } })
-      if (existingUser) {
+      if (existingUser && existingUser.id !== req.user.id) {
         const error = new Error('Ese email le pertenece a otro usuario')
         return res.status(409).json({ error: error.message })
       }
@@ -180,7 +179,7 @@ export class AuthController {
       await User.update(
         { email, name },
         {
-          where: { id: id },
+          where: { id: req.user.id },
         }
       )
 
