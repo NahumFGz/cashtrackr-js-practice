@@ -3,6 +3,8 @@ import { DialogTitle } from '@headlessui/react'
 import { useFormState } from 'react-dom'
 import deleteExpense from '@/actions/delete-expense-action'
 import { useEffect } from 'react'
+import ErrorMessage from '../ui/ErrorMessage'
+import { toast } from 'react-toastify'
 
 type DeleteExpenseForm = {
   closeModal: () => void
@@ -23,6 +25,14 @@ export default function DeleteExpenseForm({ closeModal }: DeleteExpenseForm) {
   })
 
   useEffect(() => {
+    if (state.success) {
+      toast.success(state.success)
+      closeModal()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state])
+
+  useEffect(() => {
     if (!Number.isInteger(+budgetId) || !Number.isInteger(+expenseId)) {
       closeModal()
     }
@@ -34,6 +44,9 @@ export default function DeleteExpenseForm({ closeModal }: DeleteExpenseForm) {
       <DialogTitle as='h3' className='font-black text-4xl text-purple-950 my-5'>
         Eliminar Gasto
       </DialogTitle>
+      {state.errors.map((error) => (
+        <ErrorMessage key={error}>{error}</ErrorMessage>
+      ))}
       <p className='text-xl font-bold'>
         Confirma para eliminar, {''}
         <span className='text-amber-500'>el gasto</span>
