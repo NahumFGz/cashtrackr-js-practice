@@ -1,6 +1,8 @@
 'use client'
 
-export default function ProfileForm() {
+import { User } from '@/src/schemas'
+
+export default function ProfileForm({ user }: { user: User }) {
   return (
     <>
       <form className=' mt-14 space-y-5' noValidate>
@@ -11,6 +13,7 @@ export default function ProfileForm() {
             placeholder='Tu Nombre'
             className='w-full border border-gray-300 p-3 rounded-lg'
             name='name'
+            defaultValue={user.name}
           />
         </div>
         <div className='flex flex-col gap-5'>
@@ -22,6 +25,7 @@ export default function ProfileForm() {
             placeholder='Tu Email'
             className='w-full border border-gray-300 p-3 rounded-lg'
             name='email'
+            defaultValue={user.email}
           />
         </div>
 
