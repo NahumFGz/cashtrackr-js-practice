@@ -4,12 +4,20 @@ import { updateUser } from '@/actions/update-user-action'
 import { User } from '@/src/schemas'
 import { useFormState } from 'react-dom'
 import ErrorMessage from '../ui/ErrorMessage'
+import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 export default function ProfileForm({ user }: { user: User }) {
   const [state, dispatch] = useFormState(updateUser, {
     errors: [],
     success: '',
   })
+
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.success)
+    }
+  }, [state])
 
   return (
     <>
