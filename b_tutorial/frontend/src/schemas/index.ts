@@ -70,6 +70,23 @@ export const DrafExpenseSchema = z.object({
   // coerce combierte el string q viene del formulario a number u otro valor
 })
 
+export const UpdatePasswordSchema = z
+  .object({
+    current_password: z
+      .string()
+      .min(1, { message: 'El Password no puede ir vacio' }),
+    password: z
+      .string()
+      .min(8, {
+        message: 'El Nuevo Password debe ser de al menos 8 caracteres',
+      }),
+    password_confirmation: z.string(),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: 'Los Passwords no son iguales',
+    path: ['password_confirmation'],
+  })
+
 //! Esquemas para revisar la forma de la respuesta
 export const SuccessSchema = z.string()
 

@@ -1,3 +1,5 @@
+import ChangePasswordForm from '@/components/profile/ChangePasswordForm'
+
 export default async function ChangePasswordPage() {
   return (
     <>
@@ -8,6 +10,7 @@ export default async function ChangePasswordPage() {
         Aquí puedes cambiar tu {''}
         <span className='text-amber-500'>password</span>
       </p>
+      <ChangePasswordForm />
     </>
   )
 }
