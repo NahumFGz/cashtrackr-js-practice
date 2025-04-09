@@ -1,5 +1,8 @@
 import { useParams, useSearchParams } from 'next/navigation'
 import { DialogTitle } from '@headlessui/react'
+import { useFormState } from 'react-dom'
+import deleteExpense from '@/actions/delete-expense-action'
+import { useEffect } from 'react'
 
 type DeleteExpenseForm = {
   closeModal: () => void
@@ -10,8 +13,21 @@ export default function DeleteExpenseForm({ closeModal }: DeleteExpenseForm) {
   const searchParams = useSearchParams()
   const expenseId = searchParams.get('deleteExpenseId')!
 
-  console.log('budgetId', budgetId)
-  console.log('expenseId', expenseId)
+  const deleteExpenseWithBudgetId = deleteExpense.bind(null, {
+    budgetId: +budgetId,
+    expenseId: +expenseId,
+  })
+  const [state, dispatch] = useFormState(deleteExpenseWithBudgetId, {
+    errors: [],
+    success: '',
+  })
+
+  useEffect(() => {
+    if (!Number.isInteger(+budgetId) || !Number.isInteger(+expenseId)) {
+      closeModal()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
@@ -35,6 +51,7 @@ export default function DeleteExpenseForm({ closeModal }: DeleteExpenseForm) {
         <button
           type='button'
           className='bg-red-500 w-full p-3 text-white uppercase font-bold hover:bg-red-600 cursor-pointer transition-colors'
+          onClick={() => dispatch()}
         >
           Eliminar
         </button>
