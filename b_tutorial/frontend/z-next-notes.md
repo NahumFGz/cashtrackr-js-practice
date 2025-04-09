@@ -21,3 +21,6 @@
 
 - Instalar gráficas circulares
   npm i react-circular-progressbar
+
+- Instalar tailwind forms
+  npm i @tailwindcss/forms
